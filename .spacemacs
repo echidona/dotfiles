@@ -325,7 +325,7 @@ you should place your code here."
             (function (lambda ()
                         (add-to-list 'TeX-command-list
                                      '("LatexMk"
-                                       "latexmk -pvc -c %t"
+                                       "latexmk -pvc %t"
                                        TeX-run-TeX nil (latex-mode) :help "Run Latexmk")))))
   )
 
