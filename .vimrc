@@ -1,27 +1,12 @@
-set encoding=utf-8
-scriptencoding utf-8
-
-set expandtab
-set tabstop=4
-set softtabstop=4
-set autoindent
-set smartindent
-set shiftwidth=4
+set encoding=utf-8 "using unicode utf-8
+scriptencoding utf-8 "useing japanese for comments
 
 set incsearch
 set ignorecase
-set smartcase
-set hlsearch
 
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 
 set whichwrap=b,s,h,l,<,>,[,],~
-set number
-
-nnoremap j gj
-nnoremap k gk
-nnoremap <down> gj
-nnoremap <up> gk
 
 if &term =~ "xterm"
     let &t_SI .= "\e[?2004h"
@@ -39,46 +24,76 @@ endif
 set showmatch
 source $VIMRUNTIME/macros/matchit.vim
 
-set wildmenu
 set history=5000
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" remind previous cursor position
+if has("autocmd")
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
+endif
+" enable tab key for autocomplete
+set wildmenu
+" hilite to search
+set hlsearch
+" ignore capital or small letter
+set smartcase
+" background derk
+set background=dark
+" syntax
+syntax on
+" show colum number and setting color
+set number
+highlight LineNr ctermfg=blue
 
-set showtabline=2 " show tab line
-" 各タブページのカレントバッファ名+αを表示
-function! s:tabpage_label(n)
-  " t:title と言う変数があったらそれを使う
-  let title = gettabvar(a:n, 'title')
-  if title !=# ''
-    return title
-  endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autoclosed or appeared pair
+imap { {}<LEFT>
+imap [ []<LEFT>
+imap ( ()<LEFT>
+imap < <><LEFT>
+" add key-bind
+nnoremap j gj
+nnoremap k gk
+" tab setting
+set expandtab
+set tabstop=4
+set softtabstop=4
+set autoindent
+set smartindent
+set shiftwidth=4
 
-  " タブページ内のバッファのリスト
-  let bufnrs = tabpagebuflist(a:n)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" package manager
+" begin the section of vim-plug
+if has('vim_starting')
+  set rtp+=~/.vim/plugged/vim-plug
+  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/plugged/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+  end
+endif
 
-  " カレントタブページかどうかでハイライトを切り替える
-  let hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
-
-  " バッファが複数あったらバッファ数を表示
-  let no = len(bufnrs)
-  if no is 1
-    let no = ''
-  endif
-  " タブページ内に変更ありのバッファがあったら '+' を付ける
-  let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '+' : ''
-  let sp = (no . mod) ==# '' ? '' : ' '  " 隙間空ける
-
-  " カレントバッファ
-  let curbufnr = bufnrs[tabpagewinnr(a:n) - 1]  " tabpagewinnr() は 1 origin
-  let fname = pathshorten(bufname(curbufnr))
-
-  let label = no . mod . sp . fname
-
-  return '%' . a:n . 'T' . hi . label . '%T%#TabLineFill#'
-endfunction
-
-function! MakeTabLine()
-  let titles = map(range(1, tabpagenr('$')), 's:tabpage_label(v:val)')
-  let sep = ' | '  " タブ間の区切り
-  let tabpages = join(titles, sep) . sep . '%#TabLineFill#%T'
-  let info = ''  " 好きな情報を入れる
-  return tabpages . '%=' . info  " タブリストを左に、情報を右に表示
-endfunction
+call plug#begin('~/.vim/plugged')
+Plug 'Shougo/unite.vim'
+Plug 'ujihisa/unite-colorscheme'
+" and color-scheme
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" file tree
+Plug 'scrooloose/nerdtree'
+" comment-region
+Plug 'tomtom/tcomment_vim'
+call plug#end()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-airline setting
+let g:airline_theme = 'murmur'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+set ttimeoutlen=50
+" NERDtree setting
+map <C-f> :NERDTreeToggle<CR>
