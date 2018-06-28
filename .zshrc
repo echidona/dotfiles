@@ -37,12 +37,14 @@ fi
 # aliasの設定
 alias logisim='java -jar ~/Downloads/logisim-generic-2.7.1.jar'
 alias ll='ls -l'
+alias yomitan='ssh e175766@yomitan.ie.u-ryukyu.ac.jp'
+alias relogin='exec $SHELL -l'
 
 # 色々な設定
-export PYENV_ROOT=/Users/kagari/.pyenv
-export PATH=/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
 eval export PATH="/Users/kagari/.pyenv/shims:${PATH}"
 export PYENV_SHELL=zsh
+export PATH=/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
+export PYENV_ROOT=/Users/kagari/.pyenv
 source '/usr/local/Cellar/pyenv/1.2.4/libexec/../completions/pyenv.zsh'
 command pyenv rehash 2>/dev/null
 pyenv() {
@@ -58,4 +60,12 @@ pyenv() {
   *)
     command pyenv "$command" "$@";;
   esac
+}
+# tmux
+function tm(){
+    if [ -n "${1}" ]; then
+        tmux attach-session -t ${1} || tmux new-session -s ${1}
+    else
+        tmux attach-session || tmux new-session
+    fi
 }

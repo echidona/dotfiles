@@ -1,5 +1,3 @@
-set encoding=utf-8 "using unicode utf-8
-scriptencoding utf-8 "useing japanese for comments
 
 set incsearch
 set ignorecase
@@ -39,8 +37,6 @@ set wildmenu
 set hlsearch
 " ignore capital or small letter
 set smartcase
-" background derk
-set background=dark
 " syntax
 syntax on
 " show colum number and setting color
@@ -49,10 +45,10 @@ highlight LineNr ctermfg=blue
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autoclosed or appeared pair
-imap { {}<LEFT>
-imap [ []<LEFT>
-imap ( ()<LEFT>
-imap < <><LEFT>
+" imap { {}<LEFT>
+" imap [ []<LEFT>
+" imap ( ()<LEFT>
+" imap < <><LEFT>
 " add key-bind
 nnoremap j gj
 nnoremap k gk
@@ -87,6 +83,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 " comment-region
 Plug 'tomtom/tcomment_vim'
+" autoclose
+Plug 'tpope/vim-surround'
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline setting
