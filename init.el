@@ -116,6 +116,11 @@
 ;;; 永続化を無視するファイル名の正規表現
 (setq undohist-ignored-files
       '("/tmp/" "COMMIT_EDITMSG"))
+;; recentf
+(use-package recentf
+  :straight t)
+(require 'recentf)
+(recentf-mode t)
 ;; php-mode
 (use-package php-mode
   :straight t)
