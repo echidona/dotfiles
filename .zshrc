@@ -5,6 +5,12 @@ export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 # Created by newuser for 5.5.1
 # 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、そのディレクトリに移動する
 setopt auto_cd
+DIRSTACKSIZE=100
+setopt AUTO_PUSHD
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+zstyle ':completion:*:descriptions' format '%BCompleting%b %U%d%u'
 
 # 文字コードの設定
 export LANG=ja_JP.UTF-8
