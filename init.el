@@ -1,6 +1,9 @@
-; package管理
-; straight.elで管理を行う
-; package管理のおまじない
+;; 文字コードを指定
+(set-language-environment "japanese")
+(setq prefer-coding-system 'utf-8)
+;;package管理
+;; straight.elで管理を行う
+;; package管理のおまじない
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 4))
@@ -23,6 +26,9 @@
 (use-package helm
   :straight t)
 (require 'helm) ;; hemlの有効化
+;; ace-isearch のためにhelm-swoopを導入
+(use-package helm-swoop
+  :straight t)
 ;; company
 (use-package company
   :straight t)
@@ -75,8 +81,7 @@
   :straight t)
 (require 'yasnippet)
 (setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"
-	"~/.emacs.d/straight/repos/yasnippet-snippets/snippets"))
+      '("~/.emacs.d/straight/repos/yasnippet-snippets/snippets"))
 (eval-after-load "yasnippet"
   '(progn
      ;; companyと競合するのでyasnippetのフィールド移動は"C-i"のみにする
@@ -121,17 +126,56 @@
   :straight t)
 (require 'recentf)
 (recentf-mode t)
+;; powerline
+(use-package powerline
+  :straight t)
+(require 'powerline)
+(powerline-default-theme)
+(setq ns-use-srgb-colorspace nil)
+;; htmlize (org-modeの追加package)
+(use-package htmlize
+  :straight t)
+(require 'htmlize)
+;; tramp (Emacsでリモート操作するためのpackage)
+(use-package tramp
+  :straight t)
+(require 'tramp)
+(setq tramp-default-method "ssh")
+;; multi-shell
+(use-package multi-shell
+  :straight t)
+(require 'multi-shell)
+(setq multi-shell-command "/usr/local/bin/zsh")
+;; ace-isearch のためにavyを導入
+(use-package avy
+  :straight t)
+(require 'avy)
+;; ace-isearch (バッファ内検索)
+(use-package ace-isearch
+  :straight t)
+(require 'ace-isearch)
+(global-ace-isearch-mode t)
+(custom-set-variables
+ '(ace-isearch-function 'avy-goto-char)
+ '(ace-isearch-use-jump 'printing-char))
+;--------------------------------------
 ;; php-mode
 (use-package php-mode
   :straight t)
 (require 'php-mode)
-;;----------------------------------------------------------------------------
+;; Haskell-mode
+(use-package haskell-mode
+  :straight t)
+(require 'haskell-mode)
+;;-------------------------------------
 ;; ツールバーやメニューバー、スクロールバーを非表示
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 ;; tabサイズ
 (setq default-tab-width 4)
+;; インデントにタブを使用しない
+(setq-default indent-tabs-mode nil)
 ;; 対応する括弧をハイライト
 (show-paren-mode 1)
 ;; yes or no => y or n
@@ -140,6 +184,10 @@
 (setq frame-title-format "%f")
 ;; スタートアップメッセージを表示させない
 (setq inhibit-startup-message t)
+;; 起動画面を表示しない
+(setq inhibit-startup-screen t)
+;; scratchメッセージを表示しない
+(setq initial-scratch-message nil)
 ;; 大文字・小文字を区別しない
 (setq case-fold-search t)
 ;; 終了時にオートセーブファイルを削除する
@@ -165,11 +213,25 @@
 				backward-char forward-char))
     (ding)))
 (setq ring-bell-function 'my-bell-function)
+;; 選択領域を削除キーで一括削除
+(delete-selection-mode t)
+;; png, jpegなどのファイルを画像として表示
+(setq auto-image-file-mode t)
+;--------------------------------------
 ;; キーの再設定
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>")) ;; mini bufferでもC-hでbackspaceを使う
 (define-key global-map "¥" '[92]) ;; ¥マークを\に変える
-(global-set-key (kbd "C-o") 'other-window)
+(global-set-key (kbd "C-t") 'other-window)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 (global-set-key (kbd "C-M-/") 'redo)
+(global-set-key (kbd "C-c C-t") 'multi-shell-new)
+(global-set-key (kbd "C-c p") 'multi-shell-prev)
+(global-set-key (kbd "C-c n") 'multi-shell-next)
+(global-set-key (kbd "C-c e") '(lambda()
+                                 (interactive)
+                                 (open-file "~/.emacs.d/init.el")))
+(define-key emacs-lisp-mode-map (kbd "C-c r") '(lambda()
+                                                 (interactive)
+                                                 (load-file "~/.emacs.d/init.el")))

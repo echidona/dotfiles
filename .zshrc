@@ -51,7 +51,8 @@ eval export PATH="/Users/kagari/.pyenv/shims:${PATH}"
 export PYENV_SHELL=zsh
 export PATH=/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
 export PYENV_ROOT=/Users/kagari/.pyenv
-source '/usr/local/Cellar/pyenv/1.2.4/libexec/../completions/pyenv.zsh'
+# no such file
+# source '/usr/local/Cellar/pyenv/1.2.4/libexec/../completions/pyenv.zsh'
 command pyenv rehash 2>/dev/null
 pyenv() {
   local command
@@ -67,6 +68,10 @@ pyenv() {
     command pyenv "$command" "$@";;
   esac
 }
+
+# emacsでzshを使う場合、以下の設定を書く必要がある
+[[ $EMACS = t ]] && unsetopt zle
+
 # tmux
 function tm(){
     if [ -n "${1}" ]; then
