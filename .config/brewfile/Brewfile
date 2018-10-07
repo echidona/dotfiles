@@ -1,0 +1,114 @@
+
+# tap repositories and their packages
+
+tap homebrew/core
+brew ansible
+brew autoconf
+brew autoconf-archive
+brew automake
+brew cairo
+brew emacs
+brew fontconfig
+brew freetype
+brew fribidi
+brew gcc
+brew gd
+brew gdbm
+brew gdk-pixbuf
+brew gettext
+brew ghostscript
+brew git
+brew glib
+brew gmp
+brew gnuplot --with-aquaterm
+brew gnutls
+brew gradle
+brew graphite2
+brew harfbuzz
+brew icu4c
+brew imagemagick@6
+brew isl
+brew jpeg
+brew leptonica
+brew libcroco
+brew libevent
+brew libffi
+brew libmpc
+brew libpng
+brew librsvg
+brew libtasn1
+brew libtiff
+brew libtool
+brew libunistring
+brew libyaml
+brew little-cms2
+brew lua
+brew mas
+brew mecab
+brew mecab-ipadic
+brew mercurial
+brew mpfr
+brew mysql@5.7
+brew nettle
+brew node
+brew openjpeg
+brew openssl
+brew p11-kit
+brew pango
+brew pcre
+brew pcre2
+brew pixman
+brew pkg-config
+brew poppler
+brew pyenv
+brew pyenv-virtualenv
+brew python
+brew python@2
+brew r
+brew readline
+brew sqlite
+brew tesseract
+brew tmux
+brew tree
+brew webp
+brew wtf
+brew xz
+brew zsh
+brew zsh-completions
+
+tap homebrew/cask-fonts
+cask font-ricty-diminished
+
+tap homebrew/cask
+cask aquaterm
+cask hyper
+cask mactex
+cask skim
+cask virtualbox
+
+tap d12frosted/emacs-plus
+brew emacs-plus --HEAD
+
+tap rcmdnk/file
+brew brew-file
+
+tap sanemat/font
+brew ricty --powerline
+
+# Other Cask applications
+cask dropbox
+cask font-source-code-pro
+cask java
+cask rstudio
+cask sourcetree
+cask xquartz
+
+# App Store applications
+appstore 409183694 Keynote (8.2)
+appstore 539883307 LINE (5.10.0)
+appstore 409203825 Numbers (5.2)
+appstore 409201541 Pages (7.2)
+appstore 803453959 Slack (3.3.2)
+appstore 1278508951 Trello (2.10.7)
+appstore 485812721 TweetDeck (3.9.889)
+appstore 497799835 Xcode (10.0)

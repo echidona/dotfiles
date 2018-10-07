@@ -1,6 +1,12 @@
 ;; 文字コードを指定
+(set-terminal-coding-system 'utf-8-unix)
+(set-keyboard-coding-system 'utf-8-unix)
+(setq default-buffer-file-coding-system 'utf-8-unix)
 (set-language-environment "japanese")
-(setq prefer-coding-system 'utf-8)
+
+;; 文字サイズを設定
+(set-face-attribute 'default nil :height 140)
+
 ;;package管理
 ;; straight.elで管理を行う
 ;; package管理のおまじない
@@ -15,6 +21,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+
 ;; packageのインストール
 ;; packageはuse-packageで管理
 ;; (straight-use-package 'package-pac)でインストールされていなければ、新たにインストール
@@ -22,13 +29,21 @@
 ;; packageの有効化
 (straight-use-package 'use-package)
 (require 'use-package)
+
+;; color-theme
+(use-package madhat2r-theme
+  :straight t)
+(require 'madhat2r-theme)
+
 ;; helm
 (use-package helm
   :straight t)
 (require 'helm) ;; hemlの有効化
+
 ;; ace-isearch のためにhelm-swoopを導入
 (use-package helm-swoop
   :straight t)
+
 ;; company
 (use-package company
   :straight t)
@@ -50,15 +65,13 @@
     (append (if (consp backend) backend (list backend))
 	    '(with company-yasnippet))))
 (setq company-backend (mapcar #'company-mode/backend-with-yas company-backends))
+
 ;; undo-tree
 (use-package undo-tree
   :straight t)
 (require 'undo-tree) ;; undo-treeの有効化
 (global-undo-tree-mode t)
-;; color-theme
-(use-package madhat2r-theme
-  :straight t)
-(require 'madhat2r-theme)
+
 ;; linum
 (use-package linum
   :straight t)
@@ -158,6 +171,11 @@
 (custom-set-variables
  '(ace-isearch-function 'avy-goto-char)
  '(ace-isearch-use-jump 'printing-char))
+;; sequential-command (C-a C-aでファイルの先頭へ、C-e C-eでファイルの末尾へ)
+(use-package sequential-command
+  :straight t)
+(require 'sequential-command-config)
+(sequential-command-setup-keys)
 ;--------------------------------------
 ;; php-mode
 (use-package php-mode
@@ -205,6 +223,8 @@
 (column-number-mode t)
 ;; カーソル行をハイライトする
 (global-hl-line-mode t)
+;; 時間を表示する
+(display-time)
 ;; beep音を消す
 (defun my-bell-function ()
   (unless (memq this-command
@@ -217,6 +237,7 @@
 (delete-selection-mode t)
 ;; png, jpegなどのファイルを画像として表示
 (setq auto-image-file-mode t)
+
 ;--------------------------------------
 ;; キーの再設定
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>")) ;; mini bufferでもC-hでbackspaceを使う
@@ -226,12 +247,20 @@
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 (global-set-key (kbd "C-M-/") 'redo)
-(global-set-key (kbd "C-c C-t") 'multi-shell-new)
+(global-set-key (kbd "C-c t") 'multi-shell-new)
 (global-set-key (kbd "C-c p") 'multi-shell-prev)
 (global-set-key (kbd "C-c n") 'multi-shell-next)
-(global-set-key (kbd "C-c e") '(lambda()
-                                 (interactive)
-                                 (open-file "~/.emacs.d/init.el")))
+;(global-set-key (kbd "C-c e") '(lambda()
+;				 (interactive)
+;                                 (open-file "~/.emacs.d/init.el")))
 (define-key emacs-lisp-mode-map (kbd "C-c r") '(lambda()
                                                  (interactive)
                                                  (load-file "~/.emacs.d/init.el")))
+
+; agda
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
+(require 'eaw)
+(eaw-fullwidth)
+
+(load-file (let ((coding-system-for-read 'utf-8)) "/usr/local/Cellar/agda/2.5.4.1/share/x86_64-osx-ghc-8.4.3/Agda-2.5.4.1/emacs-mode/agda2.el"))
+(require 'agda2-mode)

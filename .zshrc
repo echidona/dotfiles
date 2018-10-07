@@ -1,6 +1,8 @@
+export LANG=ja_JP.UTF-8
 # PASSの設定
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # Created by newuser for 5.5.1
 # 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、そのディレクトリに移動する
@@ -26,8 +28,8 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 # prompt
-RPROMPT="[%d]"
-PROMPT="%# "
+PROMPT="%F{green}%n[%~]%f
+%(?,%F{green},%F{red})%B%b %f"
 
 # brewの設定やインストールしたformulaの一覧を管理できる
 # caskのupgradeに便利 (-Cでクリーンアップを有効化)
@@ -35,38 +37,27 @@ PROMPT="%# "
 # 下のコマンドで代用可能
 # brew cask upgrade ; brew cask cleanup
 # 以下のコマンドで、インストールしたcaskの数や、/Application/下にあるアプリでcaskでもインストールできるアプリの数を確認できる
-# brew file casklist
+## brew file casklist
 if [ -f $(brew --prefix)/etc/brew-wrap ];then
     source $(brew --prefix)/etc/brew-wrap
 fi
 
-# aliasの設定
-alias logisim='java -jar ~/Downloads/logisim-generic-2.7.1.jar'
+## aliasの設定
 alias ll='ls -l'
-alias yomitan='ssh e175766@yomitan.ie.u-ryukyu.ac.jp'
 alias relogin='exec $SHELL -l'
 
-# 色々な設定
-eval export PATH="/Users/kagari/.pyenv/shims:${PATH}"
-export PYENV_SHELL=zsh
-export PATH=/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
-export PYENV_ROOT=/Users/kagari/.pyenv
-# no such file
-# source '/usr/local/Cellar/pyenv/1.2.4/libexec/../completions/pyenv.zsh'
-command pyenv rehash 2>/dev/null
-pyenv() {
-  local command
-  command="${1:-}"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
+## pyenv/virtualenvの設定
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
-  case "$command" in
-  rehash|shell)
-    eval "$(pyenv "sh-$command" "$@")";;
-  *)
-    command pyenv "$command" "$@";;
-  esac
+# pipの中身を全削除したいとき用のコマンド
+pipDelete(){
+    touch pip_delete_list.txt
+    pip freeze > pip_delete_list.txt
+    pip uninstall -r pip_delete_list.txt
+    rm pip_delete_list.txt
 }
 
 # emacsでzshを使う場合、以下の設定を書く必要がある
@@ -80,3 +71,15 @@ function tm(){
         tmux attach-session || tmux new-session
     fi
 }
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+function precmd() {
+    if [ ! -z $TMUX ]; then
+        tmux refresh-client -S
+    fi
+}
+
+# plugins
+
