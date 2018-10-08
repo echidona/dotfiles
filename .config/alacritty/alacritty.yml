@@ -443,13 +443,13 @@ key_bindings:
   - { key: F12,      mods: Command, chars: "\x1b[24;3~"                  }
   - { key: NumpadEnter,             chars: "\n"                          }
 
-  - { key: P,        mods: Command,       chars: "\x18\x64"              }   # detach a session
-  - { key: T,        mods: Command,       chars: "\x18\x63"              }   # create a window
-  - { key: D,        mods: Command,       chars: "\x18\x25"              }   # create a horizontal pane
-  - { key: D,        mods: Command|Shift, chars: "\x18\x22"              }   # create a vertical pane
-  - { key: W,        mods: Command,       chars: "\x18\x78"              }   # close a pane (close a window with a single pane)
-  - { key: G,        mods: Command,       chars: "\x18\x77"              }   # show a windows
-  - { key: Up,       mods: Command,       chars: "\x18\x1b\x5b\x41"      }   # move to another pane
-  - { key: Down,     mods: Command,       chars: "\x18\x1b\x5b\x42"      }
-  - { key: Right,    mods: Command,       chars: "\x18\x1b\x5b\x43"      }
-  - { key: Left,     mods: Command,       chars: "\x18\x1b\x5b\x44"      }
+  - { key: P,        mods: Command,       chars: "\x07\x64"              }   # detach a session
+  - { key: T,        mods: Command,       chars: "\x07\x63"              }   # create a window
+  - { key: D,        mods: Command,       chars: "\x07\x25"              }   # create a horizontal pane
+  - { key: D,        mods: Command|Shift, chars: "\x07\x22"              }   # create a vertical pane
+  - { key: W,        mods: Command,       chars: "\x07\x78"              }   # close a pane (close a window with a single pane)
+  - { key: G,        mods: Command,       chars: "\x07\x77"              }   # show a windows
+  - { key: Up,       mods: Command,       chars: "\x07\x1b\x5b\x41"      }   # move to another pane
+  - { key: Down,     mods: Command,       chars: "\x07\x1b\x5b\x42"      }
+  - { key: Right,    mods: Command,       chars: "\x07\x1b\x5b\x43"      }
+  - { key: Left,     mods: Command,       chars: "\x07\x1b\x5b\x44"      }
