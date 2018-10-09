@@ -81,10 +81,10 @@ cask font-ricty-diminished
 
 tap homebrew/cask
 cask aquaterm
-cask hyper
-cask mactex
-cask skim
-cask virtualbox
+cask java
+cask rstudio
+cask sourcetree
+cask xquartz
 
 tap d12frosted/emacs-plus
 brew emacs-plus --HEAD
@@ -98,10 +98,9 @@ brew ricty --powerline
 # Other Cask applications
 cask dropbox
 cask font-source-code-pro
-cask java
-cask rstudio
-cask sourcetree
-cask xquartz
+cask mactex
+cask skim
+cask virtualbox
 
 # App Store applications
 appstore 409183694 Keynote (8.2)

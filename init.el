@@ -250,17 +250,7 @@
 (global-set-key (kbd "C-c t") 'multi-shell-new)
 (global-set-key (kbd "C-c p") 'multi-shell-prev)
 (global-set-key (kbd "C-c n") 'multi-shell-next)
-;(global-set-key (kbd "C-c e") '(lambda()
-;				 (interactive)
-;                                 (open-file "~/.emacs.d/init.el")))
+
 (define-key emacs-lisp-mode-map (kbd "C-c r") '(lambda()
                                                  (interactive)
                                                  (load-file "~/.emacs.d/init.el")))
-
-; agda
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
-(require 'eaw)
-(eaw-fullwidth)
-
-(load-file (let ((coding-system-for-read 'utf-8)) "/usr/local/Cellar/agda/2.5.4.1/share/x86_64-osx-ghc-8.4.3/Agda-2.5.4.1/emacs-mode/agda2.el"))
-(require 'agda2-mode)

@@ -13,9 +13,9 @@ if git_status=$(cd $1 && git status 2>/dev/null ); then
         git_info="#[bg=black,fg=colour014]  ${git_branch} ${state}#[default]"
     fi
 else
-    git_info=""
+    git_info="#[fg=black]#[default]"
 fi
 
-directory="#[bg=black,fg=blue]#[bg=black,fg=cyan]$1#[bg=default,fg=black]#[default]"
+directory="#[bg=default,fg=blue]#[bg=black,fg=cyan]$1#[default]"
 
 echo "$directory$git_info"
