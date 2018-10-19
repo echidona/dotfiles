@@ -2,13 +2,28 @@
 # tap repositories and their packages
 
 tap homebrew/core
+brew agda
 brew ansible
+brew apr
+brew apr-util
+brew arpack
 brew autoconf
 brew autoconf-archive
 brew automake
+brew boost
+brew brotli
+brew c-ares
+brew cabal-install
 brew cairo
+brew cmigemo
 brew emacs
+brew epstool
+brew fftw
+brew fig2dev
+brew flac
+brew fltk
 brew fontconfig
+brew fontforge
 brew freetype
 brew fribidi
 brew gcc
@@ -16,41 +31,67 @@ brew gd
 brew gdbm
 brew gdk-pixbuf
 brew gettext
+brew ghc
 brew ghostscript
+brew giflib
 brew git
+brew gl2ps
 brew glib
+brew glpk
 brew gmp
+brew gnu-sed
 brew gnuplot --with-aquaterm
 brew gnutls
 brew gradle
+brew graphicsmagick
 brew graphite2
 brew harfbuzz
+brew hdf5
+brew httpd
 brew icu4c
+brew imagemagick
 brew imagemagick@6
 brew isl
+brew jansson
+brew jasper
+brew jemalloc
 brew jpeg
 brew leptonica
 brew libcroco
+brew libev
 brew libevent
 brew libffi
 brew libmpc
+brew libogg
 brew libpng
 brew librsvg
+brew libsndfile
+brew libspiro
 brew libtasn1
 brew libtiff
 brew libtool
+brew libuninameslist
 brew libunistring
+brew libvorbis
 brew libyaml
 brew little-cms2
 brew lua
+brew markdown
 brew mas
 brew mecab
 brew mecab-ipadic
 brew mercurial
+brew metis
 brew mpfr
 brew mysql@5.7
+brew netpbm
 brew nettle
+brew nghttp2
 brew node
+brew nspr
+brew nss
+brew octave
+brew open-mpi
 brew openjpeg
 brew openssl
 brew p11-kit
@@ -59,17 +100,27 @@ brew pcre
 brew pcre2
 brew pixman
 brew pkg-config
+brew plotutils
 brew poppler
+brew portaudio
+brew pstoedit
 brew pyenv
 brew pyenv-virtualenv
 brew python
 brew python@2
+brew qhull
+brew qrupdate
 brew r
 brew readline
 brew sqlite
-brew tesseract
+brew suite-sparse
+brew sundials
+brew szip
+brew tesseract --HEAD
+brew texinfo
 brew tmux
 brew tree
+brew veclibfort
 brew webp
 brew wtf
 brew xz
@@ -86,14 +137,11 @@ cask rstudio
 cask sourcetree
 cask xquartz
 
-tap d12frosted/emacs-plus
-brew emacs-plus --HEAD
-
 tap rcmdnk/file
 brew brew-file
 
 tap sanemat/font
-brew ricty --powerline
+brew ricty --with-powerline
 
 # Other Cask applications
 cask dropbox
@@ -104,7 +152,7 @@ cask virtualbox
 
 # App Store applications
 appstore 409183694 Keynote (8.2)
-appstore 539883307 LINE (5.10.0)
+appstore 539883307 LINE (5.10.1)
 appstore 409203825 Numbers (5.2)
 appstore 409201541 Pages (7.2)
 appstore 803453959 Slack (3.3.2)

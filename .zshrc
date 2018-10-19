@@ -1,8 +1,9 @@
 export LANG=ja_JP.UTF-8
 # PASSの設定
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="PYENV_ROOT/bin:$PATH"
 
 # Created by newuser for 5.5.1
 # 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、そのディレクトリに移動する
@@ -45,10 +46,11 @@ fi
 ## aliasの設定
 alias ll='ls -l'
 alias relogin='exec $SHELL -l'
+#alias emacs='emacsclient -c -a ""'
+alias killemacs='emacsclient -e "(kill-emacs)"'
 
 ## pyenv/virtualenvの設定
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
@@ -71,9 +73,6 @@ function tm(){
         tmux attach-session || tmux new-session
     fi
 }
-
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
 
 function precmd() {
     if [ ! -z $TMUX ]; then

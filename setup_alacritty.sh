@@ -7,8 +7,8 @@ echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc # reflection zshrc
 
 echo "install alacritty"
-git clone https://github.com/jwilm/alacritty.git ~/alacritty
-cd ~/alacritty
+git clone https://github.com/jwilm/alacritty.git ~/.sub_module/alacritty
+cd ~/.sub_module/alacritty
 # build
 make app
 cp -r target/release/osx/Alacritty.app /Applications/
