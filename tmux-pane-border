@@ -1,21 +1,23 @@
 #!/bin/sh
 
-if git_status=$(cd $1 && git status 2>/dev/null ); then
+if git_status=$(cd $1 && git status 2>/dev/null); then
     git_branch="$(echo $git_status| awk 'NR==1 {print $3}')"
     case $git_status in
-        *Changes\ not\ staged* ) state="#[bg=colour013,fg=black]#[bg=colour013,fg=black]± #[bg=default,fg=colour013]#[default]" ;;
-        *Changes\ to\ be\ committed* ) state="#[bg=blue,fg=black]#[bg=blue,fg=black]↑ #[default]#[bg=default,fg=blue]#[default]" ;; 
-        * ) state="#[bg=green,fg=black]#[bg=green,fg=black] ✔ #[bg=default,fg=green]#[default]" ;;
+        *Changes\ not\ staged* ) state="#[bg=colour013,fg=black]#[bg=colour013,fg=black] ± #[bg=default,fg=colour013]#[default]" ;;
+        *Changes\ to\ be\ committed* ) state="#[bg=blue,fg=black]#[bg=blue,fg=black] ↑ #[default]#[bg=default,fg=blue]#[default]" ;; 
+        * ) state="#[bg=green,fg=black]#[bg=green,fg=black] ✔ #[bg=default,fg=green]#[default]";;
     esac
     if [[ $git_branch = "master" ]]; then
-        git_info="#[bg=black,fg=blue]  ${git_branch} ${state}#[default]"
+        directory="#[bg=black,fg=colour27]#[bg=black,fg=colour27] $1 #[default]"
+        git_info="#[bg=colour27,fg=white] ${git_branch} ${state}#[default]"
     else
-        git_info="#[bg=black,fg=colour014]  ${git_branch} ${state}#[default]"
+        directory="#[bg=black,fg=colour71]#[bg=black,fg=colour71] $1 #[default]"
+        git_info="#[bg=colour71,fg=white] ${git_branch} ${state}#[default]"
     fi
 else
-    git_info="#[fg=black]#[default]"
+    directory="#[bg=black,fg=black]#[bg=black,fg=white] $1 #[default]"
+    git_info="#[fg=black]#[default]"
 fi
 
-directory="#[bg=default,fg=blue]#[bg=black,fg=cyan]$1#[default]"
 
 echo "$directory$git_info"

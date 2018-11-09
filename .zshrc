@@ -30,7 +30,7 @@ SAVEHIST=10000
 
 # prompt
 PROMPT="%F{green}%n[%~]%f
-%(?,%F{green},%F{red})%B%b %f"
+%(?,%F{green},%F{red})%B%#%b %f"
 
 # brewの設定やインストールしたformulaの一覧を管理できる
 # caskのupgradeに便利 (-Cでクリーンアップを有効化)
@@ -46,7 +46,7 @@ fi
 ## aliasの設定
 alias ll='ls -l'
 alias relogin='exec $SHELL -l'
-#alias emacs='emacsclient -c -a ""'
+## alias emacs='emacsclient -c -a ""'
 alias killemacs='emacsclient -e "(kill-emacs)"'
 
 ## pyenv/virtualenvの設定

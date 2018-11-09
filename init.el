@@ -82,16 +82,16 @@
   :init
   (global-undo-tree-mode))
 
-;; linum
-;; show line number
-(use-package linum
-  :straight nil
-  :config
-  (line-number-mode t)
-  (global-linum-mode t)
-  (setq linum-delay t)
-  (defadvice linum-schedule (around my-linum-schedule () activate)
-    (run-with-idle-timer 0.2 nil #'linum-update-current)))
+;; ;; linum
+;; ;; show line number
+;; (use-package linum
+;;   :straight nil
+;;   :config
+;;   (line-number-mode t)
+;;   (global-linum-mode t)
+;;   (setq linum-delay t)
+;;   (defadvice linum-schedule (around my-linum-schedule () activate)
+;;     (run-with-idle-timer 0.2 nil #'linum-update-current)))
 
 ;; flycheck
 (use-package flycheck
@@ -99,7 +99,8 @@
   :config
   (add-hook 'emacs-lisp-mode 'flycheck-mode)
   (add-hook 'cc-mode-hook 'flycheck-mode)
-  (add-hook 'python-mode-hook 'flycheck-mode))
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'java-mode-hook 'flycheck-mode))
 
 ;; smartparens
 (use-package smartparens
@@ -173,9 +174,9 @@
   (setq ns-use-srgb-colorspace nil)
   (powerline-default-theme))
 
-;; htmlize (org-modeの追加package)
-(use-package htmlize
-  :straight t)
+;; ;; htmlize (org-modeの追加package)
+;; (use-package htmlize
+;;   :straight t)
 
 ;; tramp (Emacsでリモート操作するためのpackage)
 (use-package tramp
@@ -233,6 +234,10 @@
 (use-package haskell-mode
   :straight t)
 
+;; python-mode
+(use-package python-mode
+  :straight t)
+
 ;;; setting markdown-mode
 (use-package markdown-mode
   :straight t
@@ -257,34 +262,8 @@
   :config
   (eaw-fullwidth))
 
-(if (window-system) (
-progn (load "server") (server-start)
-(set-fontset-font "fontset-standard"
-         'ascii
-          (font-spec :family "Monaco" :size 18) nil 'prepend)  ;; ここでサイズを指定
-(set-fontset-font "fontset-standard"
-          'japanese-jisx0213.2004-1
-          (font-spec :family "Monaco") nil 'prepend)
-
-(set-fontset-font "fontset-standard"
-                  'unicode
-                  (font-spec :family "Monaco" :size 18)
-                  nil
-                  'append)
-
-(setq default-frame-alist
-      (append (list 
-               '(font . "fontset-standard"))
-              default-frame-alist))
-))
-
-(set-face-attribute 'default t :font "fontset-standard" )
-(set-face-attribute 'default nil :font "fontset-standard" )
-(set-frame-font "fontset-standard" nil t)
-
 (load-file (let ((coding-system-for-read 'utf-8))
-             (shell-command-to-string "agda-mode locate")))
-
+                (shell-command-to-string "agda-mode locate")))
 ;;-------------------------------------
 ;; tabサイズ
 (setq default-tab-width 4)
@@ -333,10 +312,9 @@ progn (load "server") (server-start)
 ;; 選択領域を削除キーで一括削除
 (delete-selection-mode t)
 
-;; png, jpegなどのファイルを画像として表示
-(setq auto-image-file-mode t)
-
-;--------------------------------------
+;; scroll in 1line
+(setq scroll-step 1)
+;---------------------------------------------------------------------------
 ;; キーの再設定
 (define-key key-translation-map (kbd "C-h") (kbd "<DEL>")) ;; mini bufferでもC-hでbackspaceを使う
 (define-key global-map "¥" '[92]) ;; ¥マークを\に変える

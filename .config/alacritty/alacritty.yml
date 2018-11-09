@@ -82,24 +82,24 @@ tabspaces: 8
 font:
   # Normal (roman) font face
   normal:
-    family: Ricty for Powerline
+    family: Monaco
     # The `style` can be specified to pick a specific face.
     # style: Regular
 
   # Italic font face
   bold:
-    family: Ricty for Powerline
+    family: Monaco
     # The `style` can be specified to pick a specific face.
     # style: Bold
 
   # Italic font face
   italic:
-    family: Ricty for Powerline
+    family: Monaco
     # The `style` can be specified to pick a specific face.
     # style: Italic
 
   # Point size
-  size: 15.0
+  size: 12.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -441,6 +441,7 @@ key_bindings:
   - { key: F11,      mods: Command, chars: "\x1b[23;3~"                  }
   - { key: F12,      mods: Command, chars: "\x1b[24;3~"                  }
   - { key: NumpadEnter,             chars: "\n"                          }
+  - { key: Enter,                   chars: "\n"                          }
   # bind for tmux
   - { key: P,        mods: Command,       chars: "\x1A\x64"              }   # detach a session
   - { key: T,        mods: Command,       chars: "\x1A\x63"              }   # create a window

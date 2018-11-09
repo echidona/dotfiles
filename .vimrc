@@ -1,4 +1,4 @@
-
+set ambiwidth=double
 set incsearch
 set ignorecase
 
