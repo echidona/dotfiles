@@ -39,8 +39,8 @@ set hlsearch
 set smartcase
 " syntax
 syntax on
-" show colum number and setting color
-set number
+" don't show colum number and setting color
+set nonumber
 highlight LineNr ctermfg=blue
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -85,7 +85,17 @@ Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 " autoclose
 Plug 'tpope/vim-surround'
+
+"" For Rust
+Plug 'racer-rust/vim-racer'
+Plug 'rust-lang/rust.vim'
+Plug 'thinca/vim-quickrun'
+
 call plug#end()
+
+set hidden
+let g:racer_cmd = '$HOME/.cargo/bin/racer'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline setting
 let g:airline_theme = 'murmur'
@@ -95,3 +105,5 @@ endif
 set ttimeoutlen=50
 " NERDtree setting
 map <C-f> :NERDTreeToggle<CR>
+" QuickRun setting
+map <C-r> :QuickRun

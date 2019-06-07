@@ -1,9 +1,16 @@
-export LANG=ja_JP.UTF-8
 # PASSの設定
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="PYENV_ROOT/bin:$PATH"
+
+# 前回いたディレクトリを開く処理
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd chpwd_func
+function chpwd_func() {
+  sed -i -e "s:^cd .* #catcat:cd $PWD #catcat:g" ~/.zshrc
+}
+cd /Users/kagari/ #catcat
 
 # Created by newuser for 5.5.1
 # 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、そのディレクトリに移動する

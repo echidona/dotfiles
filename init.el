@@ -22,14 +22,15 @@
 (setq straight-use-package-by-default t)
 
 ;; color-theme
-(use-package zenburn-theme
-  :straight t)
+; (use-package zenburn-theme
+;   :straight t)
 
 ;; path
-(use-package exec-path-from-shell
-  :straight t
-  :config
-  (exec-path-from-shell-initialize))
+;; シェルが読み込んでいるパスを読み込む
+; (use-package exec-path-from-shell
+;   :straight t
+;   :config
+;   (exec-path-from-shell-initialize))
 
 ;; helm
 (use-package helm
@@ -68,12 +69,12 @@
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
 ;; company jedi for python
-(use-package company-jedi
-  :straight t
-  :config
-  (defun my/python-mode-hook ()
-    (add-to-list 'company-backends 'company-jedi))
-  (add-hook 'python-mode-hook 'my/python-mode-hook))
+; (use-package company-jedi
+;   :straight t
+;   :config
+;   (defun my/python-mode-hook ()
+;     (add-to-list 'company-backends 'company-jedi))
+;   (add-hook 'python-mode-hook 'my/python-mode-hook))
 
 ;; undo-tree
 (use-package undo-tree
@@ -162,17 +163,17 @@
      '("/tmp/" "COMMIT_EDITMSG")))
 
 ;; recentf
-(use-package recentf
-  :straight t
-  :config
-  (recentf-mode t))
+; (use-package recentf
+;   :straight t
+;   :config
+;   (recentf-mode t))
 
 ;; powerline
-(use-package powerline
-  :straight t
-  :config
-  (setq ns-use-srgb-colorspace nil)
-  (powerline-default-theme))
+; (use-package powerline
+;   :straight t
+;   :config
+;   (setq ns-use-srgb-colorspace nil)
+;   (powerline-default-theme))
 
 ;; ;; htmlize (org-modeの追加package)
 ;; (use-package htmlize
@@ -202,22 +203,22 @@
 
 
 ;; sequential-command (C-a C-aでファイルの先頭へ、C-e C-eでファイルの末尾へ)
-(use-package sequential-command
-  :straight t)
+; (use-package sequential-command
+;   :straight t)
 
 ;; migemo
-(use-package migemo
-  :straight t
-  :init
-  (setq migemo-command "cmigemo")
-  (setq migemo-options '("-q" "--emacs"))
-  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix)
-  :config
-  (load-library "migemo")
-  (migemo-init))
+; (use-package migemo
+;   :straight t
+;   :init
+;   (setq migemo-command "cmigemo")
+;   (setq migemo-options '("-q" "--emacs"))
+;   (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
+;   (setq migemo-user-dictionary nil)
+;   (setq migemo-regex-dictionary nil)
+;   (setq migemo-coding-system 'utf-8-unix)
+;   :config
+;   (load-library "migemo")
+;   (migemo-init))
 
 ;--------------------------------------
 ;;; tex mode
@@ -227,12 +228,12 @@
      (setq tex-start-commands ""))
 
 ;; php-mode
-(use-package php-mode
-  :straight t)
+; (use-package php-mode
+;   :straight t)
 
 ;; Haskell-mode
-(use-package haskell-mode
-  :straight t)
+; (use-package haskell-mode
+;   :straight t)
 
 ;; python-mode
 (use-package python-mode
