@@ -1,6 +1,7 @@
 set ambiwidth=double
 set incsearch
 set ignorecase
+set mouse=a
 
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 
