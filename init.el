@@ -20,14 +20,13 @@
 ;; theme
 (use-package atom-one-dark-theme
   :config (set-face-background 'default "unspecified-bg"))
-;; mode-lineを書き換え
-(use-package smart-mode-line
-  :init
-  (defvar sml/no-confirm-load-theme t)
-  :config
-  (sml/setup))
+;; mode-lineの設定
+;;; in active
+(set-face-attribute 'mode-line nil :foreground "#007090" :background "#000000")
+;;; no active
+(set-face-attribute 'mode-line-inactive nil :foreground "#202020" :background "#000000")
 
-;; helm
+;; helm(コマンド補完)
 (use-package helm
   :straight t
   :bind (("C-x C-f" . helm-find-files)
@@ -38,6 +37,8 @@
          ("<tab>" . helm-execute-persistent-action))
   :config
   (helm-mode))
+(use-package helm-swoop
+  :bind ("C-s" . helm-swoop))
 
 ;; company(文字列補完)
 (use-package company
@@ -61,6 +62,15 @@
 		      :background "orange")
   (set-face-attribute 'company-scrollbar-bg nil
 		      :background "gray40")
+  ;; yasnippetとの連携
+  (defvar company-mode/enable-yas t
+    "Enable yasnippet for all backends.")
+  (defun company-mode/backend-with-yas (backend)
+    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+	backend
+      (append (if (consp backend) backend (list backend))
+	      '(:with company-yasnippet))))
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
   :bind
   ("C-M-i" . company-complete)
   (:map company-active-map
@@ -72,7 +82,33 @@
 	("C-n" . 'company-select-next)
 	("C-p" . 'company-select-previous)))
 
-;source code系-----------------------
+; カッコを綺麗に表示する
+(use-package rainbow-delimiters
+  :config
+  (rainbow-delimiters-mode))
+
+;; project treeを表示
+(use-package neotree
+  :bind ([f8] . 'neotree-toggle)
+  :config
+  (use-package all-the-icons)
+  (setq neo-show-hidden-files t)
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq neo-smart-open t)
+  (custom-set-faces
+   '(neo-root-dir-face ((t (:foreground "#8D8D84"))))
+   '(neo-dir-link-face ((t (:foreground "#0000FF"))))
+   '(neo-file-link-face ((t (:foreground "#BA36A5"))))))
+
+;;source code系-----------------------
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :config
+  (use-package yasnippet-snippets)
+  (setq yas-snippet-dirs
+	'("~/.emacs.d/snippets"))
+  (yas-global-mode 1))
+
 ;;tex
 ;;; tex mode
 (add-hook 'latex-mode-hook
@@ -86,7 +122,6 @@
 ; (scroll-bar-mode -1) ; GUI
 (menu-bar-mode -1)
 
-(global-hl-line-mode 0)
 ;; auto insert closing bracket
 (electric-pair-mode 1)
 ;; turn on bracket match highlight
@@ -102,4 +137,7 @@
 (setq auto-save-default nil)
 
 ;keybind-----------------------------------
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>")) ;; mini bufferでもC-hでbackspaceを使う
+;; mini bufferでもC-hでbackspaceを使う
+(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+;; C-oで別のwindowへ移る
+(global-set-key (kbd "C-o") 'other-window)
