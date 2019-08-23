@@ -85,7 +85,7 @@ font:
     # Default:
     #   - (macOS) Menlo
     #   - (Linux) monospace
-    #   - (Windows) Consolas
+    #   - (Windows) Consolas 
     family: Menlo
 
     # The `style` can be specified to pick a specific face.
@@ -327,10 +327,10 @@ live_config_reload: true
 # Default:
 #   - (Linux/macOS) /bin/bash --login
 #   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
+shell:
+  program: /usr/local/bin/zsh
+  args:
+    - --login
 
 # Windows 10 ConPTY backend (Windows only)
 #
