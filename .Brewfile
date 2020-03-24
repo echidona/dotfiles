@@ -1,0 +1,8 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+brew "docker"
+cask "docker"
+cask "keka"
+cask "mattermost"
+cask "slack"

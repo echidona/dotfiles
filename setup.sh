@@ -1,10 +1,27 @@
 #!/bin/sh
 
-DOT_DIRCTORY="$HOME/dotfiles"
+DOTHOME=$HOME/dotfile
 
-ln -snfv $DOT_DIRCTORY/.config $HOME
-ln -snfv $DOT_DIRCTORY/.latexmk $HOME
-ln -snfv $DOT_DIRCTORY/.tmux.conf $HOME
-ln -snfv $DOT_DIRCTORY/.vimrc $HOME
-ln -snfv $DOT_DIRCTORY/tmux-pane-border /usr/local/bin
-ln -snfv $DOT_DIRCTORY/settings.json $HOME/Library/Application\ Support/Code/User/
+deploy() {
+    for f in .??*
+    do
+        [[ $f =~ .git+ ]] && continue
+        echo ln -snfv $DOTHOME/$f $HOME/$f
+    done
+}
+
+initalize() {
+    echo brew bundle --file=$DOTHOME/.Brewfile
+}
+
+dump() {
+    echo brew bundle dump --file=$DOTHOME/.Brewfile --force
+}
+
+if [ $1 = "--deploy" -o $1 = "-d" ]; then
+    deploy
+elif [ $1 = "--init" -o $1 = "-i" ]; then
+    initalize
+elif [ $1 = "--dump" ]; then
+    dump
+fi
