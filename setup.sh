@@ -5,7 +5,7 @@ DOTHOME=$HOME/dotfile
 deploy() {
     for f in .??*
     do
-        [[ $f =~ .git+ ]] && continue
+        [[ $f =~ (.git+|.Brewfile) ]] && continue
         echo ln -snfv $DOTHOME/$f $HOME/$f
     done
 }
