@@ -18,9 +18,9 @@ dump() {
     echo brew bundle dump --file=$DOTHOME/.Brewfile --force
 }
 
-if [ $1 = "--deploy" -o $1 = "-d" ]; then
+if [ $1 = "--deploy" ]; then
     deploy
-elif [ $1 = "--init" -o $1 = "-i" ]; then
+elif [ $1 = "--init" ]; then
     initalize
 elif [ $1 = "--dump" ]; then
     dump
