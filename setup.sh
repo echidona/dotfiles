@@ -25,3 +25,6 @@ elif [ $1 = "--init" ]; then
 elif [ $1 = "--dump" ]; then
     dump
 fi
+
+# restart
+exec $SHELL -l
