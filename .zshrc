@@ -8,6 +8,10 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 # for vscode
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+# for Xwindows(Xquartz)
+export DISPLAY=":0"
+# for python
+export PATH="/Users/kagari/Library/Python/3.7/bin:$PATH"
 
 # brewで入れたものの補完
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
@@ -22,7 +26,7 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:
 # VCSの情報を表示するように設定
 # vcs_infoを読み込み
 autoload -Uz vcs_info
- 
+
 #============ git の情報をプロンプトに表示する ============
 # vcs_info_msg_0_変数をどのように表示するかフォーマットの指定
 ## デフォルトのフォーマット
@@ -32,7 +36,7 @@ zstyle ':vcs_info:*' formats '(%s)[%b]'
 ## 特別な状態（mergeでコンフリクトしたときなど）でのフォーマット
 ### %a: アクション名（merge, rebaseなど）
 zstyle ':vcs_info:*' actionformats '(%s)[%b|%a]'
- 
+
 # プロンプトが表示される毎にバージョン管理システムの情報を取得
 ## precmd: プロンプトが表示される毎に実行される関数
 ## vcs_info: バージョン管理システムから情報を取得
@@ -68,3 +72,9 @@ RPROMPT='${vcs_info_msg_0_}'
 
 # load alias file
 . $HOME/.zsh.d/alias.zsh
+
+# launch tmux when start zsh
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#      tmux attach -t default || tmux new -s default
+    exec tmux
+fi
