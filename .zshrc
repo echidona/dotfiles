@@ -1,91 +1,80 @@
-# PASSの設定
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="PYENV_ROOT/bin:$PATH"
-
-# 前回いたディレクトリを開く処理
-autoload -Uz add-zsh-hook
-add-zsh-hook chpwd chpwd_func
-function chpwd_func() {
-  sed -i -e "s:^cd .* #catcat:cd $PWD #catcat:g" ~/.zshrc
-}
-cd /Users/kagari/ #catcat
-
-# Created by newuser for 5.5.1
-# 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、そのディレクトリに移動する
-setopt auto_cd
-DIRSTACKSIZE=100
-setopt AUTO_PUSHD
-autoload -Uz compinit && compinit
-zstyle ':completion:*' menu select
-zstyle ':completion:*:cd:*' ignore-parents parent pwd
-zstyle ':completion:*:descriptions' format '%BCompleting%b %U%d%u'
-
-# 文字コードの設定
+# Created by newuser for 5.7.1
 export LANG=ja_JP.UTF-8
+export PATH="/usr/local/opt/ncurses/bin:$PATH"
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+# for Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+# for vscode
+export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+# for Xwindows(Xquartz)
+export DISPLAY=":0"
+# for python
+export PATH="/Users/kagari/Library/Python/3.7/bin:$PATH"
 
-# 補完機能を有効にする
-# 大文字小文字を区別せず補完する
-autoload -U compinit; compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# brewで入れたものの補完
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fpath+=~/.zfunc
 
-# コマンドの設定を保存するファイル
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+# load for complition
+autoload -U compinit && compinit -u
 
-# prompt
-PROMPT="%F{green}%n[%~]%f
-%(?,%F{green},%F{red})%B%#%b %f"
+# 大文字と小文字を区別しない
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
 
-# brewの設定やインストールしたformulaの一覧を管理できる
-# caskのupgradeに便利 (-Cでクリーンアップを有効化)
-# brew file cask_upgrade -C
-# 下のコマンドで代用可能
-# brew cask upgrade ; brew cask cleanup
-# 以下のコマンドで、インストールしたcaskの数や、/Application/下にあるアプリでcaskでもインストールできるアプリの数を確認できる
-## brew file casklist
-if [ -f $(brew --prefix)/etc/brew-wrap ];then
-    source $(brew --prefix)/etc/brew-wrap
+# VCSの情報を表示するように設定
+# vcs_infoを読み込み
+autoload -Uz vcs_info
+
+#============ git の情報をプロンプトに表示する ============
+# vcs_info_msg_0_変数をどのように表示するかフォーマットの指定
+## デフォルトのフォーマット
+### %s: どのバージョン管理システムを使っているか（git, svnなど）
+### %b: ブランチ名
+zstyle ':vcs_info:*' formats '(%s)[%b]'
+## 特別な状態（mergeでコンフリクトしたときなど）でのフォーマット
+### %a: アクション名（merge, rebaseなど）
+zstyle ':vcs_info:*' actionformats '(%s)[%b|%a]'
+
+# プロンプトが表示される毎にバージョン管理システムの情報を取得
+## precmd: プロンプトが表示される毎に実行される関数
+## vcs_info: バージョン管理システムから情報を取得
+precmd () {
+    vcs_info
+    print ""
+}
+
+autoload -Uz add-zsh-hook
+function save_pwd() {
+    pwd > ${HOME}/.pwd
+}
+add-zsh-hook chpwd save_pwd
+cd `cat ${HOME}/.pwd`
+
+#============ pyenv ============
+export PYENV_ROOT=/usr/local/var/pyenv
+if which pyenv > /dev/null;then
+    eval "$(pyenv init -)";
 fi
 
-## aliasの設定
-alias ll='ls -l'
-alias relogin='exec $SHELL -l'
-## alias emacs='emacsclient -c -a ""'
-alias killemacs='emacsclient -e "(kill-emacs)"'
+#============ pyenv-virtualenv ============
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
-## pyenv/virtualenvの設定
-export PYENV_ROOT="$HOME/.pyenv"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+ 
+#============ PROMPT ============
+## prompt_subst: プロンプトを表示する際に変数を展開するオプション
+setopt prompt_subst
+## vcs_info_msg_0_: バージョン管理システムの情報
+autoload -Uz colors; colors
+PROMPT='%(?.%{${fg[green]}%}.%{${fg[red]}%})%c/ 》%{${reset_color}%}'
+RPROMPT='${vcs_info_msg_0_}'
 
-# pipの中身を全削除したいとき用のコマンド
-pipDelete(){
-    touch pip_delete_list.txt
-    pip freeze > pip_delete_list.txt
-    pip uninstall -r pip_delete_list.txt
-    rm pip_delete_list.txt
-}
+# load alias file
+. $HOME/.zsh.d/alias.zsh
 
-# emacsでzshを使う場合、以下の設定を書く必要がある
-[[ $EMACS = t ]] && unsetopt zle
-
-# tmux
-function tm(){
-    if [ -n "${1}" ]; then
-        tmux attach-session -t ${1} || tmux new-session -s ${1}
-    else
-        tmux attach-session || tmux new-session
-    fi
-}
-
-function precmd() {
-    if [ ! -z $TMUX ]; then
-        tmux refresh-client -S
-    fi
-}
-
-# plugins
-
+# launch tmux when start zsh
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#      tmux attach -t default || tmux new -s default
+    exec tmux
+fi
