@@ -1,7 +1,7 @@
 *.DS_Store
-.emacs.d/**
 !.emacs.d/init.el
-.config/**
 !.config/alacritty
 !.config/fish
 !.config/peco
+.emacs.d/**
+.config/**
